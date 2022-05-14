@@ -15,6 +15,7 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
     testImplementation(kotlin("test"))
+    testImplementation("org.amshove.kluent:kluent:1.68")
 }
 
 tasks.test {

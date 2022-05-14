@@ -1,7 +1,6 @@
 fun main(args: Array<String>) {
     println("Hello World!")
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
+    //https://qiita.com/niwasawa/items/533385a7c718a1dc39a3
     println("Program arguments: ${args.joinToString()}")
 }
