@@ -14,7 +14,7 @@ class SpentTimeCalculatorTest {
     fun calculateTest() {
         val file = File("src/test/resources/test_todo.md")
         val actual = SpentTimeCalculator().calculate(file, 30)
-        actual shouldBeEqualTo mapOf("test0" to 90, "test1" to 30, "test2" to 0, "test3" to 60, "test4" to 0)
+        actual shouldBeEqualTo mapOf("test0" to 90, "test1" to 270, "test2" to 0, "test3" to 60, "test4" to 0)
     }
 
     @Test

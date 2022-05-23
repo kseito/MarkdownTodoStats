@@ -1,3 +1,4 @@
+import model.Item
 import model.OneLine
 import model.StructuredOneLine
 import model.StructuredOneLineCollection
@@ -7,17 +8,18 @@ class SpentTimeCalculator {
 
     fun calculate(file: File, unitInMinutes: Int): Map<String, Int> {
         val list = mutableMapOf<String, Int>()
-        val lines = file.readLines()
-            .map { OneLine(it) }
-        lines.map { line ->
-            if (line.hasItem()) {
-                val item = line.extractItem()
-                list.put(item.title, item.count * unitInMinutes)
-            } else {
-                //Do nothing
-            }
+        val collection = createStructuredLines(file)
+        collection.values.map { line ->
+            val item = Item.create(line)
+            list[item.title] = sumChildrenSpentTime(item) * unitInMinutes
         }
         return list
+    }
+
+    private fun sumChildrenSpentTime(item: Item): Int {
+        val sum = item.children
+            ?.sumOf { sumChildrenSpentTime(it) } ?: 0
+        return sum + item.count
     }
 
     fun createStructuredLines(file: File): StructuredOneLineCollection {
