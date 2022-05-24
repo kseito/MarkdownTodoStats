@@ -1,3 +1,4 @@
+import model.SummarizedItem
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -13,8 +14,14 @@ class SpentTimeCalculatorTest {
     @Test
     fun calculateTest() {
         val file = File("src/test/resources/test_todo.md")
-        val actual = SpentTimeCalculator().calculate(file, 30)
-        actual shouldBeEqualTo mapOf("test0" to 90, "test1" to 270, "test2" to 0, "test3" to 60, "test4" to 0)
+        val actual = SpentTimeCalculator().calculate(file)
+        actual shouldBeEqualTo listOf(
+            SummarizedItem("test1", 9),
+            SummarizedItem("test0", 3),
+            SummarizedItem("test3", 2),
+            SummarizedItem("test2", 0),
+            SummarizedItem("test4", 0),
+        )
     }
 
     @Test
@@ -30,9 +37,10 @@ class SpentTimeCalculatorTest {
             child[1].line.itemString shouldBeEqualTo "[ ] test12"
             child[2].apply {
                 line.itemString shouldBeEqualTo "[ ] test13"
-                child.size shouldBeEqualTo 2
+                child.size shouldBeEqualTo 3
                 child[0].line.itemString shouldBeEqualTo "[ ] test13-1 --"
                 child[1].line.itemString shouldBeEqualTo "[ ] test13-2"
+                child[2].line.itemString shouldBeEqualTo "[ ] test13-3 --"
             }
         }
         actual.values[4].line.itemString shouldBeEqualTo "test4"
