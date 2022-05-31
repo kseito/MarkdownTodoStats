@@ -9,7 +9,12 @@ class SpentTimeCalculator {
         collection.values.map { line ->
             val item = Item.create(line)
             val summarizedItem = SummarizedItem(item.title, sumChildrenSpentTime(item))
-            list.add(summarizedItem)
+            list.find { it.title == summarizedItem.title }
+                ?.let {
+                    val index = list.indexOf(it)
+                    val existingItem = list[index]
+                    list.set(index, existingItem + summarizedItem)
+                } ?: list.add(summarizedItem)
         }
         return list.sortedByDescending { it.count }
     }

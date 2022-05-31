@@ -17,7 +17,7 @@ class SpentTimeCalculatorTest {
         val actual = SpentTimeCalculator().calculate(file)
         actual shouldBeEqualTo listOf(
             SummarizedItem("test1", 9),
-            SummarizedItem("test0", 3),
+            SummarizedItem("test0", 5),
             SummarizedItem("test3", 2),
             SummarizedItem("test2", 0),
             SummarizedItem("test4", 0),
@@ -28,7 +28,7 @@ class SpentTimeCalculatorTest {
     fun createStructuredLinesTest() {
         val file = File("src/test/resources/test_todo.md")
         val actual = SpentTimeCalculator().createStructuredLines(file)
-        actual.values.size shouldBeEqualTo 5
+        actual.values.size shouldBeEqualTo 6
         actual.values[0].line.itemString shouldBeEqualTo "[ ] test0 ---"
         actual.values[1].apply {
             line.itemString shouldBeEqualTo "test1 -"
